@@ -1,18 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../partials/head') -%>
+
 
 <body>
   <div id="wrapper"></div>
-  <%- include('../partials/header') -%>
-  <%- include('../partials/navigation') -%>
-
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <%- include('partials/header'); %>
 
   <main id="main" class="site-main" role="main">
-    <%- include('body') -%>
+    
 
     <section class="hero" aria-labelledby="welcome-title">
       <div class="hero-inner">
@@ -30,10 +24,10 @@
           </div>
 
           <figure class="hero-image">
-            <img src="/images/vehicle/delorean-tn.jpg" alt="Illustration of the DMC Delorean">
+            <img src="/images/vehicles/delorean-tn.jpg" alt="Illustration of the DMC Delorean">
           </figure>
         </div>
-      </div>
+      </div>  
     </section>
 
     <section class="reviews" aria-labelledby="reviews-title">
@@ -91,12 +85,22 @@
 
         <div class="upgrade-grid">
           <a class="upgrade-card" href="#" aria-label="Flux Capacitor upgrade">
-            <img src="/images/upgrade_flux.svg" alt="Flux Capacitor icon">
+            <img src="/images/upgrades/flux-cap.png" alt="Flux Capacitor icon">
             <span class="upgrade-label">Flux Capacitor</span>
           </a>
 
+          <a class="upgrade-card" href="#" aria-label="Hub cap upgrade">
+            <img src="/images/upgrades/hub-cap.jpg" alt="Hub cap icon">
+            <span class="upgrade-label">Hub Cap</span>  
+          </a>
+
+          <a class="upgrade-card" href="#" aria-label="Bumper Sticker upgrade">
+            <img src="/images/upgrades/bumper_sticker.jpg" alt="Bumper Sticker icon">
+            <span class="upgrade-label">Bumper Sticker</span>
+          </a>
+
           <a class="upgrade-card" href="#" aria-label="Flame Decals upgrade">
-            <img src="/images/upgrade_flames.svg" alt="Flame decals icon">
+            <img src="/images/upgrades/flame.jpg" alt="Flame decals icon">
             <span class="upgrade-label">Flame Decals</span>
           </a>
         </div>
@@ -104,6 +108,6 @@
     </section>
   </main>
 
-  <%- include('partials/footer'); %>
+  <%- ('partials/footer'); %>
 </body>
 </html>

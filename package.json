@@ -16,5 +16,15 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minnie-star/cse340.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/minnie-star/cse340/issues"
+  },
+  "homepage": "https://github.com/minnie-star/cse340#readme"
 }
