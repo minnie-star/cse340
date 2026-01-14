@@ -2,10 +2,10 @@
 :root {
   --bg: #ffffff;         /* White background */
   --panel: #ffffff;      /* White panel */
-  --text: #101f33;       /* Dark text for contrast */
+  --text: #020e1d;       /* Dark text for contrast */
   --muted: #555;         /* Muted gray text */
-  --accent: #4db6ff;     /* Blue accent stays */
-  --accent-2: #c9900c;   /* Warm accent stays */
+  --accent: #05253a;     /* Blue accent stays */
+  --accent-2: #0a0a0a;   /* Warm accent stays */
   --border: #ccc;        /* Light border */
 
   --focus: #ffcc00;
@@ -73,10 +73,9 @@ a:focus-visible, button:focus-visible {
   display: block;
 }
 .nav-list a {
-  padding: 8 12px;
+  padding: 7px;
   border-radius: 6px;
 }
-.nav-list a[aria-current="page"],
 .nav-list a:hover {
   background: var(--accent);
   color: #00121f;
@@ -95,7 +94,7 @@ html, body {
   color: var(--text);
 }
 
-.site-main {
+.website {
   max-width: var(--maxw);
   margin: 24px auto;
   padding: 16px;
@@ -103,14 +102,18 @@ html, body {
   conic-gradient(from 45deg, #000 0 25%, #fff 0 50%, #000 0 75%, #fff 0 100%) 0 0 / 22px 22px, var(--bg);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  mask:
+  
+}
+
+/* 
+experimental code
+mask:
     radial-gradient(14px at 14px 14px, #0000 98%, #000),
     radial-gradient(14px at calc(100% - 14px) 14px, #0000 98%, #000),
     radial-gradient(14px at 14px calc(100% - 14px), #0000 98%, #000),
     radial-gradient(14px at calc(100% - 14px) calc(100% - 14px), #0000 98%, #000);
   -webkit-mask-composite: source-over;
-  mask-composite: add;
-}
+  mask-composite: add; */
 
 /* 5) Hero Section */
 .hero {
@@ -137,7 +140,7 @@ html, body {
 }
 .btn-primary {
   display: inline-block;
-  background: var(--accent);
+  background: #6dbffa;
   color: #00121f;
   padding: 12px 20px;
   border-radius: 8px;
@@ -181,7 +184,7 @@ html, body {
 .review-item blockquote {
   margin: 0;
   padding: 16px;
-  background: #4db6ff;
+  background: #6dbffa;
   border-left: 4px solid var(--accent);
   border-radius: 8px;
   font-size: 1rem;
@@ -205,7 +208,7 @@ html, body {
   padding: 12px;
   border: 2px solid var(--border);
   border-radius: 10px;
-  background: #4db6ff;
+  background: #6dbffa;
   color: var(--text);
 }
 .upgrade-card:hover {
