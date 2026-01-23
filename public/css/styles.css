@@ -77,7 +77,7 @@ a:focus-visible, button:focus-visible {
   border-radius: 6px;
 }
 .nav-list a:hover {
-  background: var(--accent);
+  background: #6dbffa;
   color: #00121f;
   font-weight: 700;
 }
