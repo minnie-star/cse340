@@ -61,7 +61,7 @@ a:focus-visible, button:focus-visible {
 }
 .nav-list {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   gap: 24px;
   list-style: none;
@@ -103,6 +103,17 @@ html, body {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   
+}
+
+.error-page {
+  padding: 2rem;
+  text-align: center;
+}
+
+.error-message {
+  margin-top: 1rem;
+  color: var(--accent);
+  font-weight: 600;
 }
 
 /* 
