@@ -20,12 +20,22 @@ const baseController = require("./controllers/baseController");
 
 const inventoryRoute = require("./routes/inventoryRoute");
 
-const utilities = require("./utilities/index");
+const utilities = require("./utilities");
+
+const errorRoutes = require("./routes/error");
 
 /* Middleware */
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(async (req, res, next) => {
+  try {
+    res.locals.nav = await utilities.getNav();
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 /* ***********************
 
@@ -35,6 +45,7 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.use(expressLayouts);
 app.set("layout", "layouts/layout");
+app.set("error", "views/errors/error");
 
 /* ***********************
 
@@ -47,25 +58,56 @@ app.get("/", utilities.handleErrors(baseController.buildHome));
 
 app.use("/inv", inventoryRoute);
 
-app.use(async (req, res, next) => {
-  next({status: 404, message: 'Sorry, we appear to have lost that page.'})
-})
+// app.use(async (req, res, next) => {
+//   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
+// })
+
+app.use("/inventory", inventoryRoute);
+
+app.use("/error", errorRoutes);
 
 /* ***********************
 
+ * 404 Handler
+
+ *************************/
+app.use(async (req, res, next) => {
+  const nav = await utilities.getNav();
+  res.status(404).render("errors/error", {
+    title: "404 Page Not Found",
+    message: "Sorry, the page you are looking for does not exist.",
+    nav,
+    error: {} // no stack trace for 404
+  });
+});
+
+
+/* ***********************
 * Express Error Handler
 * Place after all other middleware
-
 *************************/
 app.use(async (err, req, res, next) => {
-  let nav = await utilities.getNav()
-  console.error(`Error at: "${req.originalURL}": ${err.message}`)
-  if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
-  res.render("errors/error", {
-    title: err.status || 'Server Error', message, nav
-  })
-})
+  try {
+    const nav = await utilities.getNav();
+    console.error(`Error at: "${req.originalUrl}": ${err.message}`);
 
+    const message = err.status === 404 
+      ? err.message 
+      : "Oh no! There was a crash. Maybe try a different route?";
+
+    res.status(err.status || 500).render("errors/error", {
+      title: err.status || "Server Error",
+      message,
+      nav,
+      error: process.env.NODE_ENV === "development" ? err : null
+    });
+  } catch (error) {
+    // fallback if nav fails
+    res.status(500).send("Critical error rendering error page.");
+  }
+});
+
+//app.use(utilities.errorHandler);
 
 /* ***********************
 
