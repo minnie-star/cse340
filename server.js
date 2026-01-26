@@ -99,15 +99,13 @@ app.use(async (err, req, res, next) => {
       title: err.status || "Server Error",
       message,
       nav,
-      error: process.env.NODE_ENV === "development" ? err : null
+      error: process.env.NODE_ENV === "development" ? err : {}
     });
   } catch (error) {
     // fallback if nav fails
     res.status(500).send("Critical error rendering error page.");
   }
 });
-
-//app.use(utilities.errorHandler);
 
 /* ***********************
 
