@@ -5,15 +5,22 @@
 * application. It is used to control the project.
 
 *******************************************/
-/* ***********************
 
+/* ***********************
 * Require Statements
 *************************/
+const session = require("express-session");
+
+const pool = require("./database");
+
 require("dotenv").config();
+
 const express = require("express");
+
 const expressLayouts = require("express-ejs-layouts");
 
 const app = express();
+
 const staticRoutes = require("./routes/static");
 
 const baseController = require("./controllers/baseController");
@@ -24,7 +31,11 @@ const utilities = require("./utilities");
 
 const errorRoutes = require("./routes/error");
 
-/* Middleware */
+const accountRoute = require("./routes/accountRoute");
+
+/* *************************
+* Middleware
+*************************** */
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -36,6 +47,23 @@ app.use(async (req, res, next) => {
     next(err);
   }
 });
+
+app.use(session({
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+    pool,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: 'sessionId',
+}))
+
+app.use(require('connect-flash')());
+app.use(function(req, res, next){
+  res.locals.messages = require('express-message')(req, res)
+  next()
+})
 
 /* ***********************
 
@@ -58,13 +86,11 @@ app.get("/", utilities.handleErrors(baseController.buildHome));
 
 app.use("/inv", inventoryRoute);
 
-// app.use(async (req, res, next) => {
-//   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
-// })
-
 app.use("/inventory", inventoryRoute);
 
 app.use("/error", errorRoutes);
+
+app.use("/account", accountRoute);
 
 /* ***********************
 
