@@ -285,7 +285,7 @@ label {
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-  width: 100%;
+  width: 100% auto;
   padding: 0.75rem;
   margin-bottom: 1rem;
   border: 1px solid #ccc;
@@ -320,6 +320,16 @@ button:hover {
   margin-bottom: 1rem;
 }
 
+#pswdBtn {
+  border: 2px solid #000;
+  border-radius: 5px;
+  padding: 2px;
+  margin-top: 1em;
+  font-size: small;
+  width: 7em;
+  text-align: center;
+}
+
 /* Sign up link */
 .signup-link {
   text-align: center;
@@ -334,6 +344,124 @@ button:hover {
 
 .signup-link a:hover {
   text-decoration: underline;
+}
+
+.register {
+  max-width: 500px;
+  padding: 2rem auto;
+  margin: 50px auto;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+.register h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.register p {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #555;
+}
+
+.register-form label {
+  display: block;
+  margin-left: 50px;
+  font-weight: 600;
+  color: #333;
+}
+
+.register-form input[type="text"],
+.register-form input[type="email"],
+.register-form input[type="password"] {
+  width: 100% auto;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-left: 50px;
+}
+
+.register-form input:focus {
+  border-color: #0077cc;
+  outline: none;
+}
+
+#pswBtn {
+  display: block;
+  margin-bottom: 0.5rem;
+  margin-left: 50px;
+  font-size: 0.9rem;
+  color: #0077cc;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.register-form button {
+  width: 50%;
+  padding: 0.75rem;
+  margin-left: 50px;
+  background-color: #0077cc;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.error-messages {
+  background: #ffe5e5;
+  border: 1px solid #ff4d4d;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.error-messages p {
+  color: #b30000;
+  margin: 0.25rem 0;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.login-link a {
+  color: #0077cc;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+.register-form :required:invalid, input:focus:invalid {
+  border: 2px solid #ff4d4d;
+  background-color: #ffe5e5;
+}
+
+.register-form :required:valid {
+  border: 2px solid #33cc33;
+  background-color: #e6ffe6;
+}
+
+.password-hint {
+  font-size: 0.9rem;
+  color: #555;
+  display: block;
+  margin-top: 0.25rem;
+  margin-left: 50px;
 }
 
 /* 8) Footer */

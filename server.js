@@ -33,6 +33,8 @@ const errorRoutes = require("./routes/error");
 
 const accountRoute = require("./routes/accountRoute");
 
+const bodyParser = require("body-parser");
+
 /* *************************
 * Middleware
 *************************** */
@@ -65,6 +67,10 @@ app.use(function(req, res, next){
   next()
 })
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
 /* ***********************
 
 * View Engine and Templates
@@ -90,7 +96,7 @@ app.use("/inventory", inventoryRoute);
 
 app.use("/error", errorRoutes);
 
-app.use("/account", accountRoute);
+app.use("/account", require("./routes/accountRoute"));
 
 /* ***********************
 

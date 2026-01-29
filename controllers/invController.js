@@ -17,6 +17,24 @@ async function buildByClassificationId (req, res, next) {
     })
 }
 
+// async function buildByClassificationId(req, res, next) {
+//   const classificationId = parseInt(req.params.classificationId, 10);
+
+//   if (isNaN(classificationId)) {
+//     return res.status(400).send("Invalid classification id");
+//   }
+
+//   const data = await invModel.getInventoryByClassificationId(classificationId);
+//   const grid = utilities.buildClassificationGrid(data);
+//   const nav = await utilities.getNav();
+
+//   res.render("inventory/classification", {
+//     title: "Vehicles",
+//     nav,
+//     grid,
+//   });
+// }
+
 /* ***********************************************
 * Build inventory by inventory view
 *  ********************************************** */

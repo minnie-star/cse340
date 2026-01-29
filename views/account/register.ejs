@@ -1,0 +1,51 @@
+<main class="register">
+    <h1>Register</h1>
+    <!--<%- title %>-->
+    <p>Create your account by filling in the form below.</p>
+
+    <!-- Display validation errors if any -->
+    <% if (errors) { %>
+        <div class="error-messages">
+        <% errors.forEach(function(error) { %>
+            <p><%= error.msg %></p>
+        <% }) %>
+        </div>
+    <% } %>
+
+    <!-- Registration form -->
+    <form action="/account/register" method="post" class="register-form">
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" name="account_name" required>
+
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname" name="account_lastname" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="account_email" required placeholder="Enter a valid email address">
+
+        <label for="password">Password:</label>
+        <input 
+            type="password" 
+            id="password" 
+            name="account_password" 
+            required
+            minlength="12"
+            pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{12,}$"
+            title="Password must be at least 12 characters long, contain one uppercase letter, one number, and one special character."
+           
+        >
+
+        <span class="password-hint">
+        Password must be at least 12 characters, include one uppercase letter, one number, and one special character.
+        </span>
+
+        <span id="pswBtn">Show Password</span>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <!-- Back to login link -->
+    <p class="login-link">
+        Already have an account? <a href="/account/login">Login here</a>
+    </p>
+</main>
