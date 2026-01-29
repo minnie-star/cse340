@@ -1,6 +1,7 @@
 // Needed Resources
 const utilities = require("../utilities");
 const accountModel = require("../models/account-model");
+const accountController = {}
 
 // Login view
 async function buildLogin(req, res, next) {
@@ -22,6 +23,15 @@ async function buildRegister(req, res, next) {
     nav,
     errors: null,
   });
+}
+
+accountController.registerView = async (req, res) => {
+  let nav = await utilities.getNav()
+  res.render("account/register", {
+    title: "Registration",
+    nav,
+    errors: null
+  })
 }
 
 // Handle registration form submission

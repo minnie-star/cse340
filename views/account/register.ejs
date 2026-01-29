@@ -3,25 +3,34 @@
     <!--<%- title %>-->
     <p>Create your account by filling in the form below.</p>
 
-    <!-- Display validation errors if any -->
     <% if (errors) { %>
-        <div class="error-messages">
-        <% errors.forEach(function(error) { %>
-            <p><%= error.msg %></p>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
         <% }) %>
-        </div>
+    </ul>
+    <% } %>
+
+
+    <!-- Display validation errors if any -->
+    <% if (errors && errors.array) { %>
+    <div class="error-messages">
+        <% errors.array().forEach(function(error) { %>
+        <p><%= error.msg %></p>
+        <% }) %>
+    </div>
     <% } %>
 
     <!-- Registration form -->
     <form action="/account/register" method="post" class="register-form">
         <label for="firstname">First Name:</label>
-        <input type="text" id="firstname" name="account_name" required>
+        <input type="text" id="firstname" name="account_name" required value="<%= locals.account_firstname %>">
 
         <label for="lastname">Last Name:</label>
-        <input type="text" id="lastname" name="account_lastname" required>
+        <input type="text" id="lastname" name="account_lastname" required value="<%= locals.account_lastname %>">
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="account_email" required placeholder="Enter a valid email address">
+        <input type="email" id="email" name="account_email" required placeholder="Enter a valid email address" value="<%= locals.account_email %>">
 
         <label for="password">Password:</label>
         <input 
