@@ -1,6 +1,6 @@
 // Needed Resources
 const express = require("express");
-const router = express.Router(); // no need for `new`
+const router = express.Router(); 
 const utilities = require("../utilities");
 const accountController = require("../controllers/accountController");
 const regValidate = require("../utilities/accountValidation");
@@ -13,7 +13,6 @@ router.get("/", (req, res) => {
 
 // Login routes
 router.get("/login", utilities.handleErrors(accountController.buildLogin));
-//router.post("/login", utilities.handleErrors(accountController.loginAccount));
 
 // Register routes
 router.get("/register", utilities.handleErrors(accountController.buildRegister));

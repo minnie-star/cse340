@@ -5,7 +5,7 @@ const pool = require("../database");
 ********************************** */
 
 async function getClassifications(){
-    return await pool.query("SELECT * FROM public.classification ORDER BY classification_name")
+    return await pool.query("SELECT * FROM public.classification ORDER BY classification_name");
 }
 
 /* *********************************
@@ -38,4 +38,21 @@ async function getVehicleById(invId) {
     }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getVehicleById};
+// Example: add classification
+async function addClassification(classification_name) {
+  try {
+    const sql = "INSERT INTO classification (classification_name) VALUES ($1) RETURNING *";
+    const data = await pool.query(sql, [classification_name]);
+    return data.rows[0];
+  } catch (error) {
+    console.error("Error adding classification:", error);
+    return null;
+  }
+}
+
+module.exports = {
+    getClassifications, 
+    getInventoryByClassificationId, 
+    getVehicleById,
+    addClassification
+};

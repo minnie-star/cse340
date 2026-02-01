@@ -139,6 +139,17 @@ app.use(async (err, req, res, next) => {
   }
 });
 
+
+app.use(async (err, req, res, next) => {
+  console.error(err.stack);
+  const nav = await utilities.getNav();
+  res.status(500).render("errors/error", {
+    title: "Server Error",
+    nav,
+    message: "Something went wrong. Please try again later."
+  });
+});
+
 /* ***********************
 
 * Local Server Information

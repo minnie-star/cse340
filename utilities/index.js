@@ -59,6 +59,27 @@ async function buildClassificationGrid(data) {
   return grid;
 };
 
+/* **********************************************
+ * Build classification list
+ * ********************************************** */
+async function buildClassificationList(selectedClassificationId = null) {
+  const data = await invModel.getClassifications(); // query DB for classifications
+  let options = "";
+
+  data.rows.forEach((row) => {
+    options += `<option value="${row.classification_id}"`;
+    if (selectedClassificationId == row.classification_id) {
+      options += " selected";
+    }
+    options += `>${row.classification_name}</option>`;
+  });
+
+  return options;
+}
+
+/* **********************************************
+ * Build vehicle detail
+ * ********************************************** */
 function buildVehicleDetailHTML(vehicle) {
   const price = vehicle.inv_price.toLocaleString("en-US", {
     style: "currency",
@@ -96,4 +117,11 @@ function errorHandler(err, req, res, next) {
   });
 }
 
-module.exports = { getNav, buildClassificationGrid, buildVehicleDetailHTML, handleErrors, errorHandler};
+module.exports = { 
+  getNav, 
+  buildClassificationGrid, 
+  buildVehicleDetailHTML, 
+  handleErrors, 
+  errorHandler, 
+  buildClassificationList
+};
