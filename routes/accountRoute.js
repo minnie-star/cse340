@@ -5,25 +5,82 @@ const utilities = require("../utilities");
 const accountController = require("../controllers/accountController");
 const regValidate = require("../utilities/accountValidation");
 
+/* ************************************
+ *  Deliver Login View
+ *  ******************************** */
+router.get("/login", utilities.handleErrors(accountController.buildLogin))
 
-// Default route for /account → redirect to login
-router.get("/", (req, res) => {
-  res.redirect("/account/login");
-});
+/* ************************************
+ *  Deliver Registration View
+ *  ******************************** */
+router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
-// Login routes
-router.get("/login", utilities.handleErrors(accountController.buildLogin));
-
-// Register routes
-router.get("/register", utilities.handleErrors(accountController.buildRegister));
-router.post("/register",
+/* ************************************
+ *  Process Registration
+ *  ******************************** */
+router.post(
+  "/register",
   regValidate.registrationRules(),
   regValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount)
 )
 
-router.post("/login", (req, res) => {
-  res.status(200).send("login process")
-})
+/* ************************************
+ *  Process Login
+ *  ******************************** */
+router.post(
+  "/login",
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  utilities.handleErrors(accountController.loginAccount)
+)
 
-module.exports = router;
+/* ************************************
+ *  Deliver Account Management View
+ *  ******************************** */
+router.get(
+  "/",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildManagement)
+)
+
+
+/* ****************************************
+ * Build update
+ **************************************** */
+router.get(
+  "/update/:id",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildUpdate)
+)
+
+/* ****************************************
+ * Process update
+ **************************************** */
+router.post(
+  "/update",
+  utilities.checkLogin,
+  regValidate.updateRules(),
+  regValidate.checkEditData,
+  utilities.handleErrors(accountController.processUpdate)
+)
+
+/* ****************************************
+* Process password
+ **************************************** */
+router.post(
+  "/password",
+  utilities.checkLogin,
+  regValidate.passwordRule(),
+  regValidate.checkPassword,
+  utilities.handleErrors(accountController.processPassword)
+)
+
+/* ****************************************
+* Account logout
+ **************************************** */
+router.get(
+  "/logout",
+  utilities.handleErrors(accountController.accountLogout)
+)
+module.exports = router; 

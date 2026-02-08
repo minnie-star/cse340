@@ -1,5 +1,8 @@
 const invModel = require("../models/inventory-model");
-//const Util = {};
+const utilities = require("../utilities");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+
 
 /* **************************************
 * Constructs the nav HTML unordered list
@@ -107,15 +110,93 @@ function buildVehicleDetailHTML(vehicle) {
  * ********************************************** */
 const handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
-function errorHandler(err, req, res, next) {
+
+async function errorHandler(err, req, res, next) {
   console.error(err.stack);
+  let nav = await utilities.getNav(); 
   res.status(err.status || 500);
   res.render("errors/error", {
-    title: "Server Error", nav,
+    title: "Server Error",
+    nav,
     message: "Something went wrong. Please try again later.",
     error: process.env.NODE_ENV == "development" ? err : {}
   });
 }
+
+/* **********************************************
+ * Middleware to check token validity
+ * ********************************************** */
+function checkJWTToken(req, res, next) {
+  if (req.cookies.jwt) {
+      jwt.verify(
+        req.cookies.jwt,
+        process.env.ACCESS_TOKEN_SECRET,
+        function (err, accountData) {
+          if (err) {
+            req.flash("notice", "Please log in")
+            res.clearCookie("jwt")
+            return res.redirect("/account/login")
+          }
+        res.locals.accountData = accountData
+        res.locals.loggedin = 1
+        next()
+        })
+    } else {
+      next()
+    }
+}
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+function checkLogin (req, res, next) {
+  if (res.locals.loggedin) {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+}
+
+/* ***********************************************
+ * Check account type
+ * ********************************************** */
+function checkAccountType(req, res, next) {
+  if(!res.locals.accountData)
+ {
+    return res.redirect("/account/login")
+    }
+  if (res.locals.accountData.account_type == "Employee" ||
+      res.locals.accountData.account_type == "Admin") 
+    {
+      next()
+    } 
+    else 
+    {
+      return res.redirect("/account/login")
+    }
+}
+
+/* ***********************************************
+ * Authorize JWT
+ * ********************************************** */
+function authorizeJWT (req, res, next) {
+  const token = req.cookies.jwt;
+  if (!token) {
+    res.locals.loggedin = false;
+    return next();
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    req.account = decoded;
+    res.locals.loggedin = true;
+    next();
+  } catch (err) {
+    res.locals.loggedin = false;
+    next();
+  }
+};
+
 
 module.exports = { 
   getNav, 
@@ -123,5 +204,9 @@ module.exports = {
   buildVehicleDetailHTML, 
   handleErrors, 
   errorHandler, 
-  buildClassificationList
+  buildClassificationList,
+  checkJWTToken,
+  checkLogin,
+  checkAccountType,
+  authorizeJWT
 };

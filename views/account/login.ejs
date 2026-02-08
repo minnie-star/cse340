@@ -3,7 +3,11 @@
 <p>Please enter your credentials to access your account.</p>
 
 <!-- Success or error notice -->
-  
+<% if (messages && messages.notice) { %>
+    <div class="flash">
+    <p><%= messages.notice %></p>
+    </div>
+<% } %>
 
 <!-- Display validation errors if any -->
 <% if (errors) { %>

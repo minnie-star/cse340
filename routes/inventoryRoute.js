@@ -1,41 +1,122 @@
-//Needed Resources
+// Needed Resources 
 const express = require("express");
-const router = new express.Router();
+const router = new express.Router(); 
 const invController = require("../controllers/invController");
-const { 
-  classificationValidationRules, 
-  checkClassificationData, 
-  inventoryValidationRules, 
-  checkInventoryData 
-} = require("../utilities/inventory-validation");
+const utilities = require("../utilities");
+const invChecks = require("../utilities/inventory-validation");
 
-// Route to build inventory by classification view
 router.get("/type/:classificationId", invController.buildByClassificationId);
 
-// Add routes for the classification form
-router.get("/add-classification", invController.buildAddClassification);
+
+/* ****************************************
+ * Route to build vehicle detail view
+ **************************************** */
+router.get("/detail/:id", 
+utilities.handleErrors(invController.buildById))
+
+/* ****************************************
+ * Error Route
+ **************************************** */
+router.get(
+  "/broken",
+  utilities.handleErrors(invController.triggerError)
+)
+
+/* ****************************************
+ * Build Management View Route
+ **************************************** */
+router.get(
+  "/",
+  utilities.checkAccountType,
+  utilities.handleErrors(invController.buildManagementView)
+)
+
+/* ****************************************
+ * Build add-classification View Route
+ **************************************** */
+router.get(
+  "/newClassification",
+  utilities.checkAccountType,
+  utilities.handleErrors(invController.buildAddClassification)
+)
+
+
+/* ****************************************
+ * Process add-classification Route
+ **************************************** */
 router.post(
-  "/add-classification",
-  classificationValidationRules(),   
-  checkClassificationData,           
-  invController.addClassification   
-);
+  "/addClassification",
+  utilities.checkAccountType,
+  invChecks.classificationValidationRules(),
+  invChecks.checkClassificationData,
+  utilities.handleErrors(invController.addClassification)
+)
 
-// Route for vehicle details view
-router.get("/detail/:invId", invController.buildById);
+/* ****************************************
+ * Build add-vehicle View Route
+ **************************************** */
+router.get(
+  "/newVehicle",
+  utilities.checkAccountType,
+  utilities.handleErrors(invController.newInventoryView)
+)
 
-router.get("/error/:trigger-error", invController.triggerError);
-
-// Management view route
-router.get("/", invController.buildManagementView);
-
-// inventoryRoute.js
-router.get("/add-inventory", invController.buildAddInventory);
+/* ****************************************
+ * Process add-vehicle Route
+ **************************************** */
 router.post(
-  "/add-inventory",
-  inventoryValidationRules(),   
-  checkInventoryData,           
-  invController.addInventory  
-);
+  "/addInventory",
+  utilities.checkAccountType,
+  invChecks.inventoryValidationRules(),
+  invChecks.checkInventoryData,
+  utilities.handleErrors(invController.addInventory)
+)
+
+/* ****************************************
+ * Get vehicles for AJAX Route
+ **************************************** */
+router.get(
+  "/getInventory/:classification_id",
+  utilities.checkAccountType,
+  utilities.handleErrors(invController.getInventoryJSON)
+)
+
+/* ****************************************
+ * Deliver the edit inventory view
+ **************************************** */
+router.get(
+  "/edit/:inv_id",
+  utilities.checkAccountType,
+  utilities.handleErrors(invController.editInvItemView)
+)
+
+/* ****************************************
+ * Process the edit inventory request
+ **************************************** */
+router.post(
+  "/update",
+  utilities.checkAccountType,
+  invChecks.inventoryValidationRules(),
+  invChecks.checkUpdateData,
+  utilities.handleErrors(invController.updateInventory)
+)
+
+/* ****************************************
+ * Deliver the delete confirmation view
+ **************************************** */
+router.get(
+  "/delete/:inv_id",
+  utilities.checkAccountType,
+  utilities.handleErrors(invController.deleteView)
+)
+
+/* ****************************************
+ * Process the delete inventory request
+ **************************************** */
+router.post("/delete", 
+utilities.checkAccountType, 
+utilities.handleErrors(invController.deleteItem)
+)
+
 
 module.exports = router;

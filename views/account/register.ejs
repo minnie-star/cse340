@@ -3,6 +3,14 @@
     <!--<%- title %>-->
     <p>Create your account by filling in the form below.</p>
 
+    <!-- Flash notice -->
+    <% if (messages && messages.notice) { %>
+    <div class="flash-message">
+        <p><%= messages.notice %></p>
+    </div>
+    <% } %>
+
+
     <!-- Display server side error -->
     <% if (errors) { %>
     <ul class="notice">
@@ -23,9 +31,9 @@
     <% } %>
 
     <!-- Registration form -->
-    <form action="/account/register" method="post" class="register-form">
+    <form id="loginForm" action="/account/register" method="post" class="register-form">
         <label for="firstname">First Name:</label>
-        <input type="text" id="firstname" name="account_name" required value="<%= locals.account_firstname %>">
+        <input type="text" id="firstname" name="account_firstname" required value="<%= locals.account_firstname %>">
 
         <label for="lastname">Last Name:</label>
         <input type="text" id="lastname" name="account_lastname" required value="<%= locals.account_lastname %>">

@@ -15,9 +15,9 @@ async function registerAccount(account_firstname, account_lastname, account_emai
   }
 }
 
-/* **********************
+/* ***************************
  *   Check for existing email
- * ********************* */
+ * ************************* */
 async function checkExistingEmail(account_email){
   try {
     const sql = "SELECT * FROM account WHERE account_email = $1"
@@ -28,5 +28,76 @@ async function checkExistingEmail(account_email){
   }
 }
  
+/* *****************************************
+ *   Return account data using email address
+ * *************************************** */
+async function getAccountByEmail(account_email) {
+  try {
+    const result = await pool.query(
+      'SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_email = $1',
+      [account_email])
+      return result.rows[0]
+  } catch (error) {
+    return new Error("No matching email found")
+  }
+}
 
-module.exports = { registerAccount, checkExistingEmail };
+/* *****************************
+ *  Return account using account_id
+ * ***************************** */
+async function getAccountById (account_id) {
+  try {
+    const res = await pool.query(
+      'SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_id = $1',
+      [account_id]
+    )
+    return res.rows[0]
+  } catch (error) {
+    throw new Error('Query failed.')
+  }
+}
+
+/* *****************************
+ *  Update account information - NOT password
+ * ***************************** */
+async function updateAccount(
+  account_firstname,
+  account_lastname,
+  account_email,
+  account_id
+) {
+  try {
+    const res = await pool.query(
+      "UPDATE account SET account_firstname = $1, account_lastname = $2, account_email = $3 WHERE account_id = $4 RETURNING *",
+      [account_firstname, account_lastname, account_email, account_id]
+    )
+    return res.rows[0]
+  } catch (error) {
+    throw new Error("Query failed.")
+  }
+}
+
+/* *****************************
+ *  Update account password
+ * ***************************** */
+async function updatePassword(hashedPassword, account_id) {
+  try {
+    const res = await pool.query(
+      "UPDATE account SET account_password = $1 WHERE account_id = $2 RETURNING *",
+      [hashedPassword, account_id]
+    )
+    return res.rows[0]
+  } catch (error) {
+    throw new Error("Query failed.")
+  }
+}
+
+module.exports = { 
+  registerAccount, 
+  checkExistingEmail, 
+  getAccountByEmail,
+  getAccountById,
+  updateAccount,
+  updatePassword,
+  checkExistingEmail 
+};
