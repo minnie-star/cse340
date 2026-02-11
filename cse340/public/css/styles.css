@@ -1,0 +1,502 @@
+/******* Change Box Model ***************/
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+/*-----Variables-----*/
+:root {
+  --heading-font: 'Michroma';
+  --text-font: 'Tinos';
+  --blue-color: #18556d;
+}
+
+/*----Checkered Background-----*/
+@media (min-width: 64rem) {
+  body {
+      background-color: white;
+      background-image:
+        linear-gradient(45deg, black 25%, transparent 25%),
+        linear-gradient(-45deg, black 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, black 75%),
+        linear-gradient(-45deg, transparent 75%, black 75%);
+      background-size: 80px 80px;
+      background-position: 0 0, 0 40px, 40px -40px, -40px 0; /* Must be half of the background-size*/
+    }
+
+    #wrapper {
+      max-width: 1200px;
+      margin: 2rem auto;
+      border: 3px var(--blue-color) solid;
+      background-color: white;
+      padding: 1rem;
+    }
+}
+
+/*-----Header-----*/
+#top-header {
+  font-family: var(--heading-font);
+  display: flex;
+  justify-content: space-between;  
+  align-items: center;
+}
+
+.siteName a {
+  text-decoration: none;
+  font-size: 2rem;
+  color: black;
+}
+
+#tools a {
+  text-decoration: none;
+  font-size: 1rem;
+  color: black;
+}
+
+/*-----Footer-----*/
+.copyright {
+  display: flex;
+  justify-content: center;
+  font-family: var(--heading-font);
+}
+
+.error-link {
+  text-align: center;
+}
+
+.error-link a {
+  text-decoration: none;
+  color: var(--blue-color);  
+  font-family: var(--text-font);
+}
+
+/*-----Navigation-----*/
+.menu ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: black;  
+  list-style: none;
+  padding: .5rem;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  font-family: var(--text-font);
+}
+
+/*-----index.ejs-----*/
+/* Global styles */
+body {
+  font-family: var(--text-font, Arial, sans-serif);
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background-color: #fdfdfd;
+}
+
+h1, h2, h3 {
+  font-family: var(--heading-font, 'Segoe UI', sans-serif);
+  margin-bottom: 0.5rem;
+  color: var(--blue-color, #0078d7);
+}
+
+main.website {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(to right, #eaf3ff, #ffffff);
+  padding: 2rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.hero-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.hero-copy {
+  flex: 1 1 300px;
+}
+
+.vehicle-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.vehicle-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.vehicle-features li {
+  margin-bottom: 0.3rem;
+  color: #444;
+}
+
+.hero-image img {
+  max-width: 350px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.btn-primary {
+  background-color: var(--blue-color, #0078d7);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #005fa3;
+}
+
+/* Reviews Section */
+.reviews {
+  margin-bottom: 2rem;
+}
+
+.review-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.review-item {
+  background: #f9f9f9;
+  border-left: 4px solid var(--blue-color, #0078d7);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.review-item blockquote {
+  margin: 0;
+}
+
+.rating {
+  color: #ff9800;
+  font-size: 1.2rem;
+}
+
+/* Upgrades Section */
+.upgrades {
+  margin-bottom: 2rem;
+}
+
+.upgrade-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.upgrade-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  color: #333;
+}
+
+.upgrade-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.upgrade-card img {
+  max-width: 60px;
+  margin-bottom: 0.5rem;
+}
+
+.upgrade-label {
+  font-weight: 600;
+  font-family: var(--text-font, Arial, sans-serif);
+}
+
+/*-----Inventory-----*/
+#inv-display {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 1rem;
+  padding-bottom: 1rem;
+}
+
+#inv-display li {
+  border: 1px solid black;
+  box-shadow: 0 2px 8px gray;
+  padding: .5rem;  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#inv-display img {
+  height: 125px;
+  width: auto;
+}
+
+.namePrice {
+  margin: 0 auto;
+}
+
+.namePrice a {
+  color: black;
+  text-decoration: none;
+  font-family: var(--text-font);
+  margin-bottom: 0;
+}
+
+.namePrice span {
+  font-family: var(--text-font);
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 0.5rem;
+}
+
+.notice {
+  font-family: var(--text-font);
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+
+/*-----Vehicle Details Page-----*/
+#img-and-details {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#img-and-details img {
+  max-width: 600px;  
+  height: auto;
+  object-fit: cover;
+  box-shadow: 0 2px 8px gray;
+}
+
+#details {
+  min-width: 300px;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+#details h2 {
+  text-align: center;
+  background-color: var(--blue-color);
+  color: white;
+}
+
+
+/*-----Error Message Page-----*/
+#error-msg {
+  text-align: center;
+  font-family: var(--text-font);
+  font-size: 2rem;
+}
+
+
+/*-----Login/Registration/Management/New Classification/New Inventory Pages/Modify Inventory-----*/
+#login-form-div, 
+#registration-form-div, 
+#management-div,
+#add-classification-form-div,
+#add-inventory-form-div,
+#modify-inventory-form-div,
+#delete-inventory-form-div,
+.form-div {
+  display: flex;
+  flex-direction: column;  
+  align-items: center;
+}
+
+#login-form, 
+#registration-form, 
+#inventory-form,
+#modify-inventory-form,
+#delete-inventory-form,
+.cse-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--text-font);
+  padding: 1rem;
+}
+
+input[type=email], 
+input[type=password],
+input[type=text],
+input[type=number],
+select {
+  margin: 0.8rem;
+  height: 40px;
+  width: 225px;
+  font-family: var(--text-font);
+  font-size: 1rem;
+}
+
+#inventory-description {
+  display: flex;
+  align-items: center;
+}
+
+textarea {
+  margin: 0.8rem;
+  font-family: var(--text-font);
+  font-size: 1rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+input[type="submit"] {
+  border: none;
+  background: var(--blue-color);
+  color: #fff;
+  border-radius: 6px;
+  padding: .8rem;
+  width: 96%;
+  max-width: 300px;
+  margin: 2rem auto;
+  box-shadow: 1px 1px 4px #999;
+  font-family: var(--text-font), sans-serif;
+  font-size: 1rem;
+  display: block;
+}
+
+input:required:invalid, input:focus:invalid,
+select:required:invalid, select:focus:invalid,
+textarea:required:invalid, textarea:required:invalid {
+  border-right: 4px solid red;
+}
+
+input:required:valid {
+  border-right: 4px solid green;
+}
+
+label {
+  font-family: var(--text-font);
+  font-size: 1rem;
+}
+
+#password-desc, #classification-desc {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 300px;
+  font-family: var(--text-font);  
+}
+
+#no-account-text {
+  font-family: var(--text-font);
+  font-size: 1.4rem;
+}
+
+#registration-link,
+.management-link {
+  font-family: var(--text-font);
+  color: var(--blue-color);
+  font-size: 1.4rem;
+}
+
+.management-link {
+  text-decoration: none;
+}
+
+.management-link:hover {
+  text-decoration: underline;
+  color: black;
+}
+
+.notice {  
+  list-style-type: none;
+}
+
+/*-----Vehicle Management-----*/
+#management-h2 {
+  font-family: var(--heading-font);
+}
+
+#management-p, #confirm-deletion {
+  font-family: var(--text-font);
+  font-size: 1.1rem;
+}
+
+#inventoryDisplay {
+  width: 60%;
+  border-collapse: collapse;
+  margin: 1rem auto;
+  font-family: var(--text-font);
+}
+
+#inventoryDisplay th,
+#inventoryDisplay td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+.table-link {
+  text-decoration: none;
+  font-family: var(--text-font);
+  color: var(--blue-color);
+}
+
+.table-link:hover {
+  text-decoration: underline;
+  color: black;
+}
+
+/*-----Account Management-----*/
+#welcome-message, #account-management-div h3 {
+  font-family: var(--heading-font);
+  text-align: center;
+}
+
+#account-management-div a {
+  text-decoration: none;
+  color: var(--blue-color);
+  font-family: var(--text-font);
+  display: flex;
+  justify-content: center;
+  font-size: 1.1rem;  
+}
