@@ -18,6 +18,8 @@ const session = require("express-session")
 const pool = require('./database/')
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
+const favoritesRoute = require("./routes/favoritesRoute");
+
 
 /* ***********************
  * Middleware
@@ -64,6 +66,8 @@ app.use(cookieParser())
 // Unit 5, Login Process activity
 app.use(utilities.checkJWTToken)
 
+// Unit 6, Favorites
+app.use("/favorites", favoritesRoute);
 
 /* ***********************
  * View Engine And Templates

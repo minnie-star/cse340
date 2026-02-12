@@ -235,4 +235,14 @@ async function accountLogout(req, res) {
 }
 
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildManagement, buildUpdate, processUpdate, processPassword, accountLogout }
+module.exports = { 
+  buildLogin, 
+  buildRegister, 
+  registerAccount, 
+  accountLogin, 
+  buildManagement, 
+  buildUpdate, 
+  processUpdate, 
+  processPassword, 
+  accountLogout 
+}

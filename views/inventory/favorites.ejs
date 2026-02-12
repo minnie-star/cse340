@@ -1,0 +1,12 @@
+<h2>Your Favorites</h2>
+<ul>
+  <% favorites.forEach(fav => { %>
+    <li>
+      <%= fav.inv_make %> <%= fav.inv_model %> - $<%= fav.inv_price %>
+      <form action="/favorites/remove" method="POST" style="display:inline;">
+        <input type="hidden" name="inv_id" value="<%= fav.inv_id %>">
+        <button type="submit">Remove</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
