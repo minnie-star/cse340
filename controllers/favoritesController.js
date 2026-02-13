@@ -22,7 +22,7 @@ async function removeFavorite(req, res) {
   }
 }
 
-async function listFavorites(req, res) {
+async function getFavorites(req, res) {
   const account_id = req.session.account_id;
   try {
     const result = await favoritesModel.getFavorites(account_id);
@@ -33,6 +33,6 @@ async function listFavorites(req, res) {
 }
 
 module.exports = { 
-    addFavorite, 
-    removeFavorite, 
-    listFavorites };
+  addFavorite, 
+  removeFavorite, 
+  getFavorites };
