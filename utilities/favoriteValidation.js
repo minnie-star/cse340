@@ -18,4 +18,7 @@ const validateRemoveFavorite = [
     .withMessage("Invalid vehicle ID.")
 ];
 
-module.exports = { validateAddFavorite, validateRemoveFavorite };
+module.exports = { 
+  validateAddFavorite, 
+  validateRemoveFavorite 
+};

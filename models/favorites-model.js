@@ -2,7 +2,7 @@ const pool = require("../database");
 
 async function addFavorite(account_id, inv_id) {
   const sql = `
-    INSERT INTO favorites (account_id, inv_id)
+    INSERT INTO public.favorites (account_id, inv_id)
     VALUES ($1, $2) ON CONFLICT DO NOTHING RETURNING *`;
   return pool.query(sql, [account_id, inv_id]);
 }

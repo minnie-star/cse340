@@ -46,13 +46,12 @@ CREATE TABLE IF NOT EXISTS public.account
     CONSTRAINT account_pkey PRIMARY KEY (account_id)
 );    
 
--- Tablee structure for `favorites` 
-CREATE TABLE favorites (
+CREATE TABLE public.favorites (
   favorite_id SERIAL PRIMARY KEY,
-  account_id INT NOT NULL REFERENCES account(account_id),
-  inv_id INT NOT NULL REFERENCES inventory(inv_id),
+  account_id INT NOT NULL REFERENCES account(account_id) ON DELETE CASCADE,
+  inv_id INT NOT NULL REFERENCES inventory(inv_id) ON DELETE CASCADE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE (account_id, inv_id) -- prevents duplicates
+  UNIQUE (account_id, inv_id)
 );
 
 SELECT * FROM public.classification
