@@ -14,7 +14,7 @@
 <p class="notice">Sorry, no matching vehicle could be found.</p>
 <% } %>
 
-<form action="/favorites/add" method="POST">
+<form action="/add" method="POST">
   <input type="hidden" name="inv_id" value="<%= vehicle.inv_id %>">
   <button type="submit">❤️ Add to Favorites</button>
 </form>

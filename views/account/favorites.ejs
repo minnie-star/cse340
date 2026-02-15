@@ -1,29 +1,50 @@
-<!-- views/account/favorites.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">   <!-- global styles -->
+  <link rel="stylesheet" href="/css/favorites.css"> <!-- page-specific styles -->
+</head>
+<body>
+  <header>
+    <h1>Car Dealership</h1>
+  </header>
 
-<%- nav %>
+  <nav>
+    <%- nav %>
+  </nav>
 
-<% if (title) { %>
-  <h1><%= title %></h1>
-<% } %>
+  <main class="favorites-page">
+    <h2><%= title %></h2>
 
-<% if (message) { %>
-  <p class="notice"><%= message %></p>
-<% } else { %>
-  <% if (favorites && favorites.length > 0) { %>
-    <ul class="favorites-list">
-      <% favorites.forEach(fav => { %>
-        <li class="favorite-item">
-          <h2><%= fav.inv_make %> <%= fav.inv_model %> (<%= fav.inv_year %>)</h2>
-          <p><%= fav.inv_description %></p>
-          <form action="/favorites/remove" method="POST">
-            <input type="hidden" name="inv_id" value="<%= fav.inv_id %>">
-            <button type="submit">❌ Remove</button>
-          </form>
-          <a href="/inv/detail/<%= fav.inv_id %>">View Details</a>
-        </li>
-      <% }) %>
-    </ul>
-  <% } else { %>
-    <p class="notice">You don’t have any favorites yet.</p>
-  <% } %>
-<% } %>
+    <% if (message) { %>
+      <p class="notice"><%= message %></p>
+    <% } else { %>
+      <% if (favorites && favorites.length > 0) { %>
+        <ul class="favorites-list">
+          <% favorites.forEach(fav => { %>
+            <li class="favorite-item">
+              <h3><%= fav.inv_year %> <%= fav.inv_make %> <%= fav.inv_model %></h3>
+              <p><%= fav.inv_description %></p>
+              <div class="favorite-actions">
+                <a href="/inv/detail/<%= fav.inv_id %>" class="btn-link">View Details</a>
+                <form action="/favorites/remove" method="POST">
+                  <input type="hidden" name="inv_id" value="<%= fav.inv_id %>">
+                  <button type="submit" class="btn-remove">Remove</button>
+                </form>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <p>You don’t have any favorites yet.</p>
+      <% } %>
+    <% } %>
+  </main>
+
+  <footer>
+    <p>&copy; <%= new Date().getFullYear() %> CSE340. All rights reserved.</p>
+  </footer>
+</body>
+</html>

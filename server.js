@@ -67,7 +67,7 @@ app.use(cookieParser())
 app.use(utilities.checkJWTToken)
 
 // Unit 6, Favorites
-app.use("/favorites", favoritesRoute);
+app.use("/", favoritesRoute);
 
 /* ***********************
  * View Engine And Templates

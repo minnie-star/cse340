@@ -1,16 +1,12 @@
 const favoritesModel = require("../models/favorites-model");
+const utilities = require("../utilities");
 
-/* ****************************************
- *  Add a favorite
- * ************************************ */
 async function addFavorite(req, res) {
   const account_id = req.session.account_id;
   const inv_id = req.body.inv_id;
 
-  // Debug log to confirm values
-  console.log("Attempting to add favorite:", { account_id, inv_id });
+  console.log("Adding favorite:", { account_id, inv_id });
 
-  // If no account_id in session, redirect to login
   if (!account_id) {
     return res.status(401).render("errors/error", {
       title: "Unauthorized",
@@ -18,16 +14,20 @@ async function addFavorite(req, res) {
     });
   }
 
+  if (!inv_id) {
+    return res.status(400).render("errors/error", {
+      title: "Bad Request",
+      message: "No vehicle ID provided."
+    });
+  }
+
   try {
     const result = await favoritesModel.addFavorite(account_id, inv_id);
-
     if (result.rows.length === 0) {
-      // ON CONFLICT DO NOTHING returns empty if duplicate
       req.flash("notice", "This vehicle is already in your favorites.");
     } else {
       req.flash("notice", "Vehicle added to favorites!");
     }
-
     res.redirect("/account/favorites");
   } catch (error) {
     console.error("Error adding favorite:", error);
@@ -38,29 +38,51 @@ async function addFavorite(req, res) {
   }
 }
 
-async function removeFavorite(req, res) {
+async function getFavorites(req, res) {
   const account_id = req.session.account_id;
-  const { inv_id } = req.body;
+  let nav = await utilities.getNav();
+
   try {
-    await favoritesModel.removeFavorite(account_id, inv_id);
-    res.redirect("/account/favorites");
+    const result = await favoritesModel.getFavorites(account_id);
+    const title = "My Favorites";
+    const message = result.rows.length === 0 ? "You have not added any favorites yet." : null;
+
+    res.render("account/favorites", {
+      title,
+      nav,
+      message,
+      favorites: result.rows
+    });
   } catch (error) {
-    res.status(500).render("errors/error", { 
-      title: "Remove Favorites",
-      message: "Failed to remove favorite." 
+    res.status(500).render("errors/error", {
+      title: "Database Error",
+      message: "Failed to load favorites."
     });
   }
 }
 
-async function getFavorites(req, res) {
+async function removeFavorite(req, res) {
   const account_id = req.session.account_id;
+  const inv_id = req.body.inv_id;
+
+  console.log("Removing favorite:", { account_id, inv_id });
+
+  if (!account_id) {
+    return res.status(401).render("errors/error", {
+      title: "Unauthorized",
+      message: "You must be logged in to remove favorites."
+    });
+  }
+
   try {
-    const result = await favoritesModel.getFavorites(account_id);
-    res.render("account/favorites", { favorites: result.rows });
+    await favoritesModel.removeFavorite(account_id, inv_id);
+    req.flash("notice", "Favorite removed.");
+    res.redirect("/account/favorites");
   } catch (error) {
-    res.status(500).render("errors/error", { 
+    console.error("Error removing favorite:", error);
+    res.status(500).render("errors/error", {
       title: "Database Error",
-      message: "Failed to load favorites." 
+      message: "Failed to remove favorite."
     });
   }
 }
