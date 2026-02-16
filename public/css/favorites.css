@@ -1,7 +1,14 @@
 .favorites-page {
   max-width: 1000px;
+  background-color: #ffffff;
+  min-height: 100vh;
   margin: 2rem auto;
   padding: 0 1rem;
+}
+
+.favorites-body {
+  background-color: #ffffff;       /* solid white */
+  background-image: none !important; /* remove checkerboard */
 }
 
 .favorites-list {
@@ -69,4 +76,24 @@
   border-radius: 6px;
   margin-bottom: 1rem;
   font-weight: 500;
+}
+
+body {
+  font-family: var(--text-font, Arial, sans-serif);
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background-color: #fdfdfd;
+}
+
+h1, h2, h3 {
+  font-family: var(--heading-font, 'Segoe UI', sans-serif);
+  margin-bottom: 0.5rem;
+  color: var(--blue-color, #0078d7);
+}
+
+main.website {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }

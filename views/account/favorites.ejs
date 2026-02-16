@@ -6,15 +6,11 @@
   <link rel="stylesheet" href="/css/styles.css">   <!-- global styles -->
   <link rel="stylesheet" href="/css/favorites.css"> <!-- page-specific styles -->
 </head>
-<body>
-  <header>
-    <h1>Car Dealership</h1>
-  </header>
+<body class="favorites-body">
+  <%- include('../partials/header') %>
+  <%- include('../partials/navigation') %>
 
-  <nav>
-    <%- nav %>
-  </nav>
-
+  
   <main class="favorites-page">
     <h2><%= title %></h2>
 
@@ -43,8 +39,7 @@
     <% } %>
   </main>
 
-  <footer>
-    <p>&copy; <%= new Date().getFullYear() %> CSE340. All rights reserved.</p>
-  </footer>
+  <%- include('../partials/footer') %>
+
 </body>
 </html>
